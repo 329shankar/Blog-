@@ -1,0 +1,45 @@
+
+    <!-- Bootstrap CSS -->
+    {% extends "base.html" %}
+    {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+    <style>
+        /* Custom CSS styles */
+        body {
+            padding-top: 20px;
+        }
+        .post-container {
+            margin-bottom: 30px;
+        }
+        .post-title {
+            color: #007bff;
+        }
+        .post-info {
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+
+{% block content %}
+    <div class="container">
+        {% for post in posts %}
+        <div class="post-container">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <p class="post-info">Author: {{ post.author.username }} | Created Date: {{ post.created_date }}</p>
+            <p>{{ post.content }}</p>
+            
+            <!-- Display photos related to this post -->
+            <div class="row">
+                {% for photo in post.photo_set.all %}
+                <div class="col-md-4">
+                    <img src="{{ photo.image.url }}" alt="{{ photo.caption }}" class="img-fluid">
+                    <p class="text-center">{{ photo.caption }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock content %}
+
+
+    <!-- Bootstrap JS (Optional) -->
